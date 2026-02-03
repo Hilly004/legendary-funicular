@@ -39,6 +39,5 @@ def out(name):
         x = np.arange(r,len(new_list),13)
         for j in range(len(x)):
             list1[r,j]=new_list[x[j]]
-    list1[0]*=(24*60*60)
-    list1[1:13]*=1000
+    #list1[0]*=(24*60*60)
     return(list1)
