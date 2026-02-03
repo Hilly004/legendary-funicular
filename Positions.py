@@ -9,3 +9,5 @@ def load(name):
 
 for name in dat.names:
     positions[name] = load(name)
+
+asteroid = load('2024YR4')
