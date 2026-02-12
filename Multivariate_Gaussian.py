@@ -27,7 +27,7 @@ R_r = np.column_stack((R_r_hat,T_r_hat,N_r_hat))
 sigma_r_mat = np.diag([sigma_RTN_r[0]**2,sigma_RTN_r[1]**2,sigma_RTN_r[2]**2])
 sigma_v_mat = np.diag([sigma_RTN_v[0]**2,sigma_RTN_v[1]**2,sigma_RTN_v[2]**2])
 
-N=100
+N=4
 
 l = np.random.randn(N,3)
 #######
@@ -92,7 +92,7 @@ ellipsoid = ellipsoid@eigenvectors.T+ mu_r
 #######
 
 plt.figure(num=1)
-ps = fil-mu_r
+ps = fil#-mu_r
 
 ax = plt.axes(projection = '3d')
 ax.set_aspect('equal')
@@ -106,11 +106,11 @@ ax.plot_surface(
     ellipsoid[...,2],
     alpha = 0.4
 )
-#ax.scatter(mu_r[0],mu_r[1],mu_r[2], color = 'red', marker = 'x', s = 30)
+ax.scatter(mu_r[0],mu_r[1],mu_r[2], color = 'red', marker = 'x', s = 30)
 ax.set_xlabel('x (m)')
 ax.set_ylabel('y (m)')
-ax.set_zlabel('z (m)')
-
+ax.set_zlabel('z (m)',labelpad=15)
+ax.tick_params(axis='z',pad=10)
 
 plt.figure(num=2)
 ax1 = plt.axes(projection='3d')
@@ -119,4 +119,4 @@ ax1.set_aspect('equal')
 for j in trange(len(fil_v)):
     ax1.scatter(fil_v[j,0],fil_v[j,1],fil_v[j,2])
 
-plt.show()
+#plt.show()
