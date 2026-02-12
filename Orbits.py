@@ -10,19 +10,21 @@ times = np.arange(0,pos.positions['Sun'][0][-1],dt)
 posAst = np.zeros((len(times),3))
 posAst_2 = np.zeros((len(times),3))
 
+#print(pos.positions['Sun'][0][-33])
+
 r=np.array(pos.asteroid[1:7,0])
 r_2=np.array(pos.asteroid[1:7,0])
 #r = np.array([-3.22749253e+11,  6.53523922e+10, -1.90546027e+10, -1.68467588e+04, -1.29695567e+04, -1.02237685e+03])
 #r = np.array([0.5e13,0.5e13,0.5e13,-1e4,-1e4,0])
 for i,t in enumerate(times):
-    posAst[i] = r[:3]
-    posAst_2[i] = r_2[:3]
+    posAst[i] = r[:3] #RK4
+    posAst_2[i] = r_2[:3] #RK5
 
     r = rk4.rk4(r,t,dt)
     r_2 = rk5.rk5(r,t,dt)
 
 #print(len(posAst))
-#print(len(posAst_2))
+
 
 
 plt.figure(num=1)
@@ -34,25 +36,36 @@ ax.set_zlim(s)
 ax.set_xlabel('x(m)')
 ax.set_ylabel('y(m)')
 ax.set_zlabel('z(m)')
+ax.set_xticks([-1e12,-0.5e12,0,0.5e12,1e12])
+ax.set_yticks([-1e12,-0.5e12,0,0.5e12,1e12])
+ax.set_zticks([-1e12,-0.5e12,0,0.5e12,1e12])
+
 for name in dat.names:
     p = pos.positions[name][1:4]
-    ax.plot(p[0],p[1],p[2],color = dat.colours[name],linewidth=dat.linewidths[name])
+    lines = ax.plot(p[0],p[1],p[2],label=[name])#,color = dat.colours[name],#linewidth=dat.linewidths[name])
 
 p1 = pos.asteroid[1:4]
-ax.plot(p1[0],p1[1],p1[2], color ='black',linewidth = 0.8)
+ax.plot(p1[0],p1[1],p1[2], color ='black',linewidth = 1.2, label=['2024YR4 - Horizons'])
 
-ax.plot(posAst[:,0],posAst[:,1],posAst[:,2], color = 'r',linestyle=':',linewidth = 0.8)
-ax.plot(posAst_2[:,0],posAst_2[:,1],posAst_2[:,2], color = 'blue', linestyle = '--', linewidth = 0.6)
-
+ax.plot(posAst[:,0],posAst[:,1],posAst[:,2], color = 'orange',linewidth = 1, linestyle = '--', label=['2024YR4 - RK4'])
+#ax.plot(posAst_2[:,0],posAst_2[:,1],posAst_2[:,2], color = 'red', linestyle = '--', linewidth = 0.8)
+ax.legend()#fontsize='small')
 ####
+print(posAst_2[0]) #RK5
+print(p1[0:3,0]) #Horizons
+print(p1[0:3,0]-posAst_2[0])
 
 d=np.empty(len(times))
 d1=np.empty(len(times))
 d2=np.empty(len(times))
 for i in range(len(times)):
-    d[i] = np.sqrt(posAst[i,0]**2+posAst[i,1]**2+posAst[i,2]**2) #RK4
-    d1[i] = np.sqrt(p1[0,i]**2+p1[1,i]**2+p1[2,i]**2) #Horizons
-    d2[i] = np.sqrt(posAst_2[i,0]**2+posAst_2[i,1]**2+posAst_2[i,2]**2) #RK5
+    d1[i] = np.sqrt(p1[0,i]**2 + p1[1,i]**2 + p1[2,i]**2) #Horizons
+    d[i] = np.sqrt(posAst[i,0]**2 + posAst[i,1]**2 + posAst[i,2]**2) #RK4
+    d2[i] = np.sqrt(posAst_2[i,0]**2 + posAst_2[i,1]**2 + posAst_2[i,2]**2) #RK5
+
+print(d1[1])
+print(d[1])
+print(d2[1])
 
 plt.figure(num=2)
 plt.xlabel('Time (s)')
@@ -62,10 +75,12 @@ plt.plot(times,d1,'black',linestyle=':')
 plt.plot(times,d2, 'cyan',linestyle='--')
 
 plt.figure(num=3)
-plt.xlabel('Time (s)')
-plt.ylabel('Separation (m)')
+plt.xlabel('Ellapsed time (s)', fontsize = 'large')
+plt.ylabel('Separation between Horizons and RK4 orbits (m)', fontsize = 'large')
 plt.plot(times,(d1-d),color = 'r')
-plt.plot(times,(d1-d2), color = 'blue')
+#plt.vlines(pos.positions['Sun'][0][-33],-2.5e8,2.5e8,linestyle='dashed')
+#plt.plot(times,(d1-d2), color = 'blue')
+#plt.plot(times,(d-d2))
 
 plt.figure(num=4)
 l = np.empty(len(times))
@@ -97,6 +112,20 @@ ax1.scatter(posAst_2[-1,0],posAst_2[-1,1],posAst_2[-1,2], color = 'g',marker='x'
 
 
 ######
-print(d-d2)
+plt.figure(num=6)
+ax2 = plt.axes(projection='3d')
+ax2.set_xlim(-3.6e9,-2.8e9)
+ax2.set_ylim(1.47e11,1.478e11)
+ax2.set_zlim(-4e8,4e8)
+ax2.set_xlabel('x(m)')
+ax2.set_ylabel('y(m)')
+ax2.set_zlabel('z(m)')
+for name in dat.names:
+    p2 = pos.positions[name][1:4]
+    p3 = pos.asteroid[1:4]
+    for i in range(-36,-31,1):
+        ax2.scatter(p2[0,i],p2[1,i],p2[2,i],color = dat.colours[name],linewidth=dat.linewidths[name])
+        ax2.scatter(p3[0,i],p3[1,i],p3[2,i])
+
 
 plt.show()

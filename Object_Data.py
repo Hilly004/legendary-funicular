@@ -4,10 +4,10 @@ names = ['Sun',
          'Earth',
          'Mars',
          'Jupiter',
-         'Saturn',
-         'Uranus',
-         'Neptune',
-         'Moon',
+         #'Saturn',
+         #'Uranus',
+         #'Neptune',
+         #'Moon',
          #'2024YR4'
          ]
 
@@ -17,10 +17,10 @@ colours = {'Sun':'orange',
            'Earth':'#0b3f9e',
            'Mars':'#b18842',
            'Jupiter':'#dbd2ab',
-           'Saturn':"#d5c166",
-           'Uranus':'#7bdbd3',
-           'Neptune':'#6560e0',
-           'Moon':'gray',
+           #'Saturn':"#d5c166",
+           #'Uranus':'#7bdbd3',
+           #'Neptune':'#6560e0',
+           #'Moon':'gray',
            #'red'
 }
 
@@ -30,10 +30,10 @@ linewidths = {'Sun':0.8,
               'Earth':0.8,
               'Mars':0.8,
               'Jupiter':1,
-              'Saturn':1,
-              'Uranus':1,
-              'Neptune':1,
-              'Moon':1,
+              #'Saturn':1,
+              #'Uranus':1,
+              #'Neptune':1,
+              #'Moon':1,
               #1
 }
 
@@ -43,9 +43,9 @@ masses = {'Sun': 1.989e30,
           'Earth': 5.972e24,
           'Mars': 6.39e23,
           'Jupiter': 1.898e27,
-          'Saturn': 5.683e26,
-          'Uranus': 8.681e25,
-          'Neptune': 1.024e26,
-          'Moon': 7.348e22,
+          #'Saturn': 5.683e26,
+          #'Uranus': 8.681e25,
+          #'Neptune': 1.024e26,
+          #'Moon': 7.348e22,
           #'2024YR4': 1
             }
