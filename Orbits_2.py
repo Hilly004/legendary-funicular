@@ -36,27 +36,33 @@ for k in trange(n):
 
 ######
 
-plt.figure(num=2)
+plt.figure(num=2,dpi =200)
 ax1 = plt.axes(projection = '3d')
 s = (-5e12,5e12)
 ax1.set_xlim(-3.6e9,-2.8e9)
 ax1.set_ylim(1.47e11,1.478e11)
 ax1.set_zlim(-4e8,4e8)
-ax1.set_xlabel('x(m)')
-ax1.set_ylabel('y(m)')
-ax1.set_zlabel('z(m)')
-for name in dat.names:
-    p = pos.positions[name][1:4]
-    for i in trange(-36,-31,1):
-        ax1.scatter(p[0,i],p[1,i],p[2,i],color = dat.colours[name],linewidth=dat.linewidths[name])
-    
-p1 = pos.asteroid[1:4]
+ax1.set_xlabel('x (m)')
+ax1.set_ylabel('y (m)')
+ax1.set_zlabel('z (m)')
+ax1.set_xticks([-3.5e9,-3.4e9,-3.3e9,-3.2e9,-3.1e9,-3.0e9,-2.9e9])
 
+p1 = pos.positions['Earth'][1:4]
+p2 = pos.positions['Moon'][1:4]
+p_ast = pos.asteroid[1:4]
+
+for i in trange(-36,-33,1):
+        ax1.scatter(p1[0,i],p1[1,i],p1[2,i],color = dat.colours['Earth'])
+        ax1.scatter(p2[0,i],p2[1,i],p2[2,i],color = dat.colours['Moon'])
+        ax1.scatter(posAst[:,:,i,0],posAst[:,:,i,1],posAst[:,:,i,2])
+        ax1.scatter(p_ast[0,i],p_ast[1,i],p_ast[2,i], color = 'r')
+ax1.scatter(p1[0,-35],p1[1,-35],p1[2,-35],color = dat.colours['Earth'],label = 'Earth')
+ax1.scatter(p2[0,-35],p2[1,-35],p2[2,-35],color = dat.colours['Moon'], label = 'Moon')
+ax1.scatter(p_ast[0,-35],p_ast[1,-35],p_ast[2,-35], color = 'r', label = '2024 YR4 - Horizons')
+ax1.legend()
 #ax1.scatter(p1[0,-1],p1[1,-1],p1[2,-1], color ='black',linewidth = 1)
 
-for i in trange(-36,-31,1):
-    ax1.scatter(posAst[:,:,i,0],posAst[:,:,i,1],posAst[:,:,i,2])
-    ax1.scatter(p1[0,i],p1[1,i],p1[2,i], color = 'r')
+    
 
 
 #plt.figure(num=3)
