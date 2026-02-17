@@ -21,7 +21,7 @@ colours = {'Sun':'orange',
            #'Uranus':'#7bdbd3',
            #'Neptune':'#6560e0',
            'Moon':'gray',
-           #'red'
+           #'2024YR4':'red'
 }
 
 linewidths = {'Sun':0.8,
@@ -34,7 +34,7 @@ linewidths = {'Sun':0.8,
               #'Uranus':1,
               #'Neptune':1,
               'Moon':1,
-              #1
+              #'2024YR4':1
 }
 
 masses = {'Sun': 1.989e30,

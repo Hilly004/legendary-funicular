@@ -6,6 +6,7 @@ import Object_Data as dat
 import Runge_Kutta_5 as rk5
 
 dt = 3600
+
 times = np.arange(0,pos.positions['Sun'][0][-1],dt)
 posAst = np.zeros((len(times),3))
 posAst_2 = np.zeros((len(times),3))
@@ -21,7 +22,7 @@ for i,t in enumerate(times):
     posAst_2[i] = r_2[:3] #RK5
 
     r = rk4.rk4(r,t,dt)
-    r_2 = rk5.rk5(r,t,dt)
+    r_2 = rk5.rk5(r_2,t,dt)
 
 #print(len(posAst))
 

@@ -22,7 +22,6 @@ for name in dat.names:
         'z': CubicSpline(t, z, extrapolate=False)
     }
 
-
 def planetary_position(name,t):
         spl = planet_splines[name]
         return np.array([
@@ -41,3 +40,23 @@ def accel(r,t): #t in seconds
         a += G*dat.masses[name]*vec/d**3
     return a
 
+arr1 = pos.asteroid
+
+t1 = arr1[0]   # seconds
+x1 = arr1[1]
+y1 = arr1[2]
+z1 = arr1[3]
+
+planet_splines_1 = {
+    'x': CubicSpline(t1, x1, extrapolate=False),
+    'y': CubicSpline(t1, y1, extrapolate=False),
+    'z': CubicSpline(t1, z1, extrapolate=False)
+    }
+
+def planetary_position_1(t):
+        spl = planet_splines_1
+        return np.array([
+             spl['x'](t),
+             spl['y'](t),
+             spl['z'](t)
+        ])
