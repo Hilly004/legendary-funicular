@@ -27,16 +27,17 @@ R_r = np.column_stack((R_r_hat,T_r_hat,N_r_hat))
 sigma_r_mat = np.diag([sigma_RTN_r[0]**2,sigma_RTN_r[1]**2,sigma_RTN_r[2]**2])
 sigma_v_mat = np.diag([sigma_RTN_v[0]**2,sigma_RTN_v[1]**2,sigma_RTN_v[2]**2])
 
-N=4
+N=2
 
-l = np.random.randn(N,3)
+l_r = np.random.randn(N,3)
+l_v = np.random.randn(N,3)
 #######
 
 cov_r = R_r@sigma_r_mat@R_r.T
 
 L_r = np.linalg.cholesky(cov_r)
 
-p = mu_r + l @ L_r.T
+p = mu_r + l_r @ L_r.T
 
 cov_inv = np.linalg.inv(cov_r)
 
@@ -49,7 +50,7 @@ k = np.sqrt(chi2_threshold)
 
 eigenvals, eigenvectors = np.linalg.eigh(cov_r)
 
-fil = p#p[d<=chi2_threshold]
+fil = p[d<=chi2_threshold]
 
 print(sum(d>chi2_threshold))
 #######
@@ -58,7 +59,7 @@ cov_v = R_r@sigma_v_mat@R_r.T
 
 L_v = np.linalg.cholesky(cov_v)
 
-p_v = mu_v + l @ L_v.T
+p_v = mu_v + l_v @ L_v.T
 
 cov_v_inv = np.linalg.inv(cov_v)
 
@@ -71,7 +72,7 @@ k = np.sqrt(chi2_threshold)
 
 eigenvals_v, eigenvectors_v = np.linalg.eigh(cov_v)
 
-fil_v = p_v#p[d<=chi2_threshold]
+fil_v = p_v[d<=chi2_threshold]
 
 #######
 
