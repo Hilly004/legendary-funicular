@@ -35,7 +35,7 @@ def rkf_2(r,t,dt, tol):
     def deriv(r_,t_):
         pos = r_[:3]
         vel = r_[3:]
-        a = acc.accel(pos,t_)
+        a = acc.accel1(pos,t_)
         return np.concatenate((vel,a))
     
     k1 = deriv(r,t)
@@ -49,7 +49,7 @@ def rkf_2(r,t,dt, tol):
 
     r5 = r + dt*(16/135*k1 + 6656/12825*k3 + 28561/56430*k4 + -9/50*k5 + 2/55*k6)
 
-    err = np.linalg.norm(r5 - r4, ord=np.inf)
+    err = np.linalg.norm((r5 - r4), ord=np.inf)
 
     safety = 0.9
 
@@ -58,6 +58,7 @@ def rkf_2(r,t,dt, tol):
     else:
         scale = safety * (tol/err)**0.2
 
+    
     dt_new = dt*scale
 
     return r5, dt_new

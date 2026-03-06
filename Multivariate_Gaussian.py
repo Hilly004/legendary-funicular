@@ -89,7 +89,11 @@ ellipsoid = np.stack([x,y,z], axis=-1)
 ellipsoid = ellipsoid@np.diag(axes_lengths)
 ellipsoid = ellipsoid@eigenvectors.T+ mu_r
 
-
+np.savez_compressed(
+    f"Multivariate_Gaussian_N_{N}.npz",
+    positions = fil,
+    velocities = fil_v
+)
 #######
 
 plt.figure(num=1)

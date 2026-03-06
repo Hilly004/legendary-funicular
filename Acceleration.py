@@ -40,6 +40,26 @@ def accel(r,t): #t in seconds
         a += G*dat.masses[name]*vec/d**3
     return a
 
+mass1 = 1e23
+
+def accel1(r,t):
+    a = np.zeros(3)
+    pos1 = np.array([0,0,0])
+    vec1 = pos1 - r
+    
+
+    pos2 = np.array([1e8,0,0])
+    vec2 = pos2 - r
+    mass2 = 1e23
+
+    d1 = np.linalg.norm(vec1)
+    d2 = np.linalg.norm(vec2)
+
+    a = G*((mass1*vec1/d1**3))#+(mass2*vec2/d2**3))
+    
+    return a
+
+
 arr1 = pos.asteroid
 
 t1 = arr1[0]   # seconds

@@ -5,7 +5,7 @@ def rk5(r,t,dt):
     def deriv(r_,t_):
         pos = r_[:3]
         vel = r_[3:]
-        a = acc.accel(pos,t_)
+        a = acc.accel1(pos,t_)
         return np.concatenate((vel,a))
     
     k1=deriv(r,t)

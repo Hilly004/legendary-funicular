@@ -12,7 +12,7 @@ from tqdm import tqdm, trange
 start = time.perf_counter()
 
 dt = 3600
-N=0
+N=20000
 times = np.arange(N*dt,pos.positions['Sun'][0][-1],dt)
 posAst = np.zeros((len(times),3))
 posAst_2 = np.zeros((len(times),3))
